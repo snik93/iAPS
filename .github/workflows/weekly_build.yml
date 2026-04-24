@@ -1,0 +1,26 @@
+name: Weekly Build iAPS
+
+on:
+  schedule:
+    # Каждый понедельник в 03:00 UTC
+    - cron: '0 3 * * 1'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Run Build iAPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Build iAPS workflow
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'build.yml',
+              ref: 'main'
+            })
