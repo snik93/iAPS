@@ -2,7 +2,7 @@ name: Weekly Build iAPS
 
 on:
   schedule:
-    # Каждый понедельник в 03:00 UTC
+    # Every monday in 03:00 UTC
     - cron: '0 3 * * 1'
 
   workflow_dispatch:
@@ -21,6 +21,6 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'build.yml',
+              workflow_id: 'build_iAPS.yml',
               ref: 'main'
             })
